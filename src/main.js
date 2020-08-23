@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import { MdApp, MdToolbar, MdDrawer, MdContent, MdList, MdIcon, MdButton } from 'vue-material/dist/components'
+import { MdApp, MdToolbar, MdDrawer, MdContent, MdList, MdIcon, MdButton, MdAvatar, MdDivider } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 
@@ -12,6 +12,8 @@ Vue.use(MdDrawer)
 Vue.use(MdApp)
 Vue.use(MdIcon)
 Vue.use(MdButton)
+Vue.use(MdAvatar)
+Vue.use(MdDivider)
 
 new Vue({
   render: h => h(App),
