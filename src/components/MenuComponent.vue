@@ -1,17 +1,37 @@
 <template>
-  <div>
-    <md-list class="md-double-line">
-      <md-list-item v-for="dish in dishes" v-bind:dish="dish" v-bind:key="dish.id">
-        <md-avatar>
-          <img :src="dish.image" alt="People">
-        </md-avatar>
+  <div class="md-layout md-alignment-center-center">
+    <md-list>
+      <div  class="md-size-75 md-layout md-gutter md-alignment-center-center">
+      <md-list-item v-for="dish in dishes" v-bind:dish="dish" v-bind:key="dish.id" class="md-layout-item" @click="selectedDish = dish">
+        <md-card>
+            <md-card-media-cover md-text-scrim>
+                <md-card-media md-ratio="1:1">
+                    <img :src="dish.image" :alt="dish.name">
+                </md-card-media>
 
-        <div class="md-list-item-text">
-          <span>{{ dish.name }}</span>
-          <span>{{ dish.description }}</span>
-        </div>
+                <md-card-area>
+                    <md-card-header>
+                        <span class="md-title">{{ dish.name }}</span>
+                    </md-card-header>
+                </md-card-area>
+            </md-card-media-cover>
+        </md-card>
       </md-list-item>
+      </div>
     </md-list>
+    <md-card v-if="selectedDish !== null">
+      <md-card-media>
+        <img :src="selectedDish.image" :alt="selectedDish.name">
+      </md-card-media>
+
+      <md-card-header>
+        <div class="md-title">{{ selectedDish.name }}</div>
+      </md-card-header>
+
+      <md-card-content>
+          {{ selectedDish.description }}
+      </md-card-content>
+    </md-card>
   </div>
 </template>
 
@@ -52,17 +72,25 @@ export default {
       label:'',
       price:'2.99',
       description:'A delectable, semi-sweet New York Style Cheese Cake, with Graham cracker crust and spiced with Indian cardamoms'                        }
-   ]
+   ],
+   selectedDish: null
   })
 }
 </script>
 
 <style lang="scss" scoped>
   .md-list {
-    width: 100%;
+    width: 90%;
     max-width: 100%;
+  }
+  .md-card {
+    width: 320px;
+    margin: 4px;
     display: inline-block;
     vertical-align: top;
-    border: 1px solid rgba(#000, .12);
+  }
+
+  .md-layout-item {
+    width: 320px;
   }
 </style>
