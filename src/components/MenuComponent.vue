@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="md-layout md-alignment-center-center">
     <md-list>
       <div  class="md-size-75 md-layout md-gutter md-alignment-center-center">
@@ -19,25 +20,19 @@
       </md-list-item>
       </div>
     </md-list>
-    <md-card v-if="selectedDish !== null">
-      <md-card-media>
-        <img :src="selectedDish.image" :alt="selectedDish.name">
-      </md-card-media>
-
-      <md-card-header>
-        <div class="md-title">{{ selectedDish.name }}</div>
-      </md-card-header>
-
-      <md-card-content>
-          {{ selectedDish.description }}
-      </md-card-content>
-    </md-card>
   </div>
+    <dish-detail></dish-detail>
+</div>
 </template>
 
 <script>
+import DishDetail from './DishDetailComponent';
+
 export default {
   name: 'MenuList',
+  components: {
+      DishDetail
+  },
   data: () => ({
     dishes: [
     {
