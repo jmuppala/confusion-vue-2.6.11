@@ -1,8 +1,8 @@
 <template>
 <div>
   <div class="md-layout md-alignment-center-center">
-    <md-list>
-      <div  class="md-size-75 md-layout md-gutter md-alignment-center-center">
+    <md-list class="md-layout-item md-size-75">
+      <div  class="md-layout md-gutter md-alignment-center-center">
       <md-list-item v-for="dish in dishes" v-bind:dish="dish" v-bind:key="dish.id" class="md-layout-item" @click="selectedDish = dish">
         <md-card>
             <md-card-media-cover md-text-scrim>
@@ -44,7 +44,7 @@ export default {
 <style lang="scss" scoped>
   .md-list {
     width: 90%;
-    max-width: 100%;
+    max-width: 99%;
   }
   .md-card {
     width: 320px;

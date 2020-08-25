@@ -37,7 +37,9 @@
       </md-app-drawer>
 
       <md-app-content>
+        <app-header></app-header>
         <menu-list></menu-list>
+        <app-footer></app-footer>
       </md-app-content>
     </md-app>
   </div>
@@ -46,23 +48,31 @@
 <style lang="scss" scoped>
   .md-app {
     border: 1px solid rgba(#000, .12);
+
+    .md-app-content {
+        width: 100%;
+        padding: 0px;
+    }
   }
 
    // Demo purposes only
   .md-drawer {
     width: 230px;
     max-width: calc(100vw - 125px);
-    background-color: powderblue;
   }
 </style>
 
 <script>
 import MenuList from './MenuComponent.vue'
+import AppHeader from './HeaderComponent.vue'
+import AppFooter from './FooterComponent.vue'
 
 export default {
   name: 'NavBar',
   components: {
-    MenuList
+    MenuList,
+    AppHeader,
+    AppFooter
   },
   data: () => ({
     menuVisible: false
