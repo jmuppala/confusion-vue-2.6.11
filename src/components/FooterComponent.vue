@@ -4,22 +4,22 @@
     <div class="md-layout-item md-xsmall-size-100 md-small-size-50 md-medium-size-30">
         <h4 class="md-title">Links</h4>
         <md-list>
-          <md-list-item>
+          <md-list-item to='/home'>
             <md-icon>home</md-icon>
             <span class="md-list-item-text">Home</span>
           </md-list-item>
 
-          <md-list-item>
+          <md-list-item to='/aboutus'>
             <md-icon>info</md-icon>
             <span class="md-list-item-text">About Us</span>
           </md-list-item>
 
-          <md-list-item>
+          <md-list-item to='/menu'>
             <md-icon>menu</md-icon>
             <span class="md-list-item-text">Menu</span>
           </md-list-item>
 
-          <md-list-item>
+          <md-list-item to='/contactus'>
             <md-icon>contact_phone</md-icon>
             <span class="md-list-item-text">Contact Us</span>
           </md-list-item>
@@ -66,10 +66,14 @@ export default {
 
  .md-list {
     padding: 0px;
+    width: 240px;
 
     .md-list-item {
     background: md-get-palette-color(blue, A100);
     }
 
+    .router-link-active {
+        border: 1px solid md-get-palette-color(blue, A200);
+    }
  }
 </style>
