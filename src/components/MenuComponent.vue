@@ -1,7 +1,14 @@
 <template>
 <div>
   <div class="md-layout md-alignment-center-center">
-    <md-list class="md-layout-item md-size-75">
+    <div class="md-layout-item md-size-100">
+        <md-button to='/home'><md-icon>home</md-icon> Home</md-button>
+        <md-button disabled><md-icon>chevron_right</md-icon></md-button>
+        <md-button disabled><md-icon>menu</md-icon> Menu</md-button>
+        <h1 class="md-Heading">Menu</h1>
+        <md-divider></md-divider>
+    </div>
+    <md-list class="md-layout-item">
       <div  class="md-layout md-gutter md-alignment-center-center">
       <md-list-item v-for="dish in dishes" v-bind:dish="dish" v-bind:key="dish.id" class="md-layout-item" @click="selectedDish = dish">
         <md-card>
@@ -53,7 +60,9 @@ export default {
     vertical-align: top;
   }
 
-  .md-layout-item {
-    width: 320px;
-  }
+ .md-layout {
+  margin: 0px;
+  padding: 40px;
+
+ }
 </style>

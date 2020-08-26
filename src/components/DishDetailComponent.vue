@@ -1,19 +1,16 @@
 <template>
-  <div class="md-layout md-alignment-top-center">
-    <md-card v-if="selectedDish !== null" class="md-layout-item md-size-45">
-      <md-card-media>
-        <img :src="selectedDish.image" :alt="selectedDish.name">
-      </md-card-media>
-
-      <md-card-header>
-        <div class="md-title">{{ selectedDish.name }}</div>
-      </md-card-header>
-
-      <md-card-content>
-          {{ selectedDish.description }}
-      </md-card-content>
-    </md-card>
-    <md-list class="md-layout-item md-triple-line">
+  <div class="md-layout md-gutter md-alignment-top-center">
+    <div class="md-layout-item md-size-100">
+        <md-button to='/home'><md-icon>home</md-icon> Home</md-button>
+        <md-button disabled><md-icon>chevron_right</md-icon></md-button>
+        <md-button to='/menu'><md-icon>menu</md-icon> Menu</md-button>
+        <md-button disabled><md-icon>chevron_right</md-icon></md-button>
+        <md-button v-if="selectedDish !== null" disabled>{{ selectedDish.name }}</md-button>
+        <h1 v-if="selectedDish !== null" class="md-Heading">{{ selectedDish.name }}</h1>
+        <md-divider></md-divider>
+    </div>
+    <card-view v-if="selectedDish !== null" :item="selectedDish" class="md-layout-item md-xsmall-size-100 md-medium-size-45"></card-view>
+    <md-list class="md-layout-item md-xsmall-size-100 md-small-size-45 md-triple-line">
         <h4 class="md-headline">Comments</h4>
         <md-list-item v-for="comment in selectedDish.comments" v-bind:comment="comment" v-bind:key="comment.id">
             <div class="md-list-item-text">
@@ -27,8 +24,13 @@
 </template>
 
 <script>
+import CardView from './CardViewComponent';
+
 export default {
   name: 'DishDetail',
+  components: {
+      CardView
+  },
   props: {
     selectedDish: {
       type: Object,
@@ -44,15 +46,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+  .md-layout {
+    margin: 0px;
+    padding: 40px;
+
+    .md-layout-item {
+        margin: 20px;
+        padding: 20px;
+    }
+  }
   .md-list {
+    margin: 10px;
     width: 640px;
     display: inline-block;
     max-width: 45%;
-  }
-  .md-card {
-    margin: 4px;
-    display: inline-block;
-    vertical-align: top;
   }
 
 </style>
