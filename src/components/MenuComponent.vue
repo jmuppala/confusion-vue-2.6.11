@@ -10,7 +10,7 @@
     </div>
     <md-list class="md-layout-item">
       <div  class="md-layout md-gutter md-alignment-center-center">
-      <md-list-item v-for="dish in dishes" v-bind:dish="dish" v-bind:key="dish.id" class="md-layout-item" @click="selectedDish = dish">
+      <md-list-item v-for="dish in dishes" v-bind:dish="dish" v-bind:key="dish.id" class="md-layout-item" :to="'/menu/' + dish.id">
         <md-card>
             <md-card-media-cover md-text-scrim>
                 <md-card-media md-ratio="1:1">
@@ -28,22 +28,16 @@
       </div>
     </md-list>
   </div>
-    <dish-detail v-if="selectedDish !== null" :selectedDish="selectedDish"></dish-detail>
 </div>
 </template>
 
 <script>
-import DishDetail from './DishDetailComponent';
 import { DISHES } from '../shared/dishes';
 
 export default {
   name: 'MenuList',
-  components: {
-      DishDetail
-  },
   data: () => ({
-    dishes: DISHES,
-   selectedDish: null
+    dishes: DISHES
   })
 }
 </script>
