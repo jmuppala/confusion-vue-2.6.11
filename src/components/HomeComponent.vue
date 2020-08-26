@@ -21,7 +21,6 @@ export default {
     dishes: DISHES,
     promotions: PROMOTIONS,
     leaders: LEADERS,
-    dish: DISHES[0]
   })
 }
 </script>
