@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import { router } from './router';
-import { MdApp, MdToolbar, MdDrawer, MdContent, MdList, MdIcon, MdButton, MdAvatar, MdDivider, MdCard, MdTable } from 'vue-material/dist/components'
+import { MdApp, MdToolbar, MdDrawer, MdContent, MdList, MdIcon, MdButton, MdAvatar, MdDivider, MdCard, MdTable, MdDialog, MdField, MdCheckbox } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 
@@ -19,6 +19,9 @@ Vue.use(MdAvatar)
 Vue.use(MdDivider)
 Vue.use(MdCard)
 Vue.use(MdTable)
+Vue.use(MdDialog)
+Vue.use(MdField)
+Vue.use(MdCheckbox)
 
 new Vue({
   render: h => h(App),

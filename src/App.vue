@@ -6,6 +6,9 @@
           <md-icon>menu</md-icon>
         </md-button>
         <span class="md-title">Ristorante Con Fusion</span>
+        <div class="md-toolbar-section-end">
+          <md-button class="md-raised md-primary" @click="showLogin = true"><md-icon>login</md-icon> Login</md-button>
+        </div>
       </md-app-toolbar>
 
       <md-app-drawer :md-active.sync="menuVisible">
@@ -42,6 +45,29 @@
         <app-footer></app-footer>
       </md-app-content>
     </md-app>
+    <md-dialog :md-active.sync="showLogin">
+      <md-dialog-content>
+      <md-dialog-title>Login</md-dialog-title>
+
+      <form novalidate @submit.prevent="loginUser">
+        <div class="md-layout">
+        <md-field class="md-layout-item md-size-100">
+          <label for="username">Username</label>
+          <md-input type="text" name="username" id="username" autocomplete="username" v-model="user.username" />
+        </md-field>
+        <md-field class="md-layout-item md-size-100">
+          <label for="password">Password</label>
+          <md-input type="password" name="password" id="password" autocomplete="password" v-model="user.password" />
+        </md-field>
+        <md-checkbox v-model="user.remember">Remember Me</md-checkbox>
+        </div>
+      <md-dialog-actions>
+        <md-button class="md-primary" @click="showLogin = false">Close</md-button>
+        <md-button type="submit" class="md-primary">Submit</md-button>
+      </md-dialog-actions>
+      </form>
+      </md-dialog-content>
+    </md-dialog>
   </div>
 </template>
 
@@ -64,6 +90,16 @@
         border: 1px solid md-get-palette-color(blue, A200);
     }
   }
+
+  .md-layout {
+    margin: 0px;
+    padding: 40px;
+
+    .md-layout-item {
+        margin: 20px;
+        padding: 20px;
+    }
+  }
 </style>
 
 <script>
@@ -77,7 +113,25 @@ export default {
     AppFooter
   },
   data: () => ({
-    menuVisible: false
-  })
+    menuVisible: false,
+    showLogin: false,
+    user: {
+      username: '',
+      password: '',
+      remember: false
+    }
+  }),
+  methods: {
+    clearForm () {
+      this.user.username = '';
+      this.user.password = '';
+      this.user.remember = false;
+    },
+    loginUser () {
+      this.showLogin = false
+      alert(JSON.stringify(this.user));
+      this.clearForm();
+    }
+  }
 }
 </script>

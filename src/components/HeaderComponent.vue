@@ -1,6 +1,6 @@
 <template>
 <div class="md-layout md-gutter md-alignment-center-space-around">
-    <div class="md-layout-item md-size-60">
+    <div class="md-layout-item md-xsmall-size-100 md-size-60">
         <h1 class="md-display-1">Ristorante Con Fusion</h1>
         <h1 class="md-headline">
             We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations
