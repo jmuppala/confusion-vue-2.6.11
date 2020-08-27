@@ -51,19 +51,27 @@
 
       <form novalidate @submit.prevent="loginUser">
         <div class="md-layout">
-        <md-field class="md-layout-item md-size-100">
-          <label for="username">Username</label>
-          <md-input type="text" name="username" id="username" autocomplete="username" v-model="user.username" />
-        </md-field>
-        <md-field class="md-layout-item md-size-100">
-          <label for="password">Password</label>
-          <md-input type="password" name="password" id="password" autocomplete="password" v-model="user.password" />
-        </md-field>
-        <md-checkbox v-model="user.remember">Remember Me</md-checkbox>
+          <div class="md-layout-item md-size-100">
+            <md-field :class="getValidationClass('username')">
+              <label for="username">Username</label>
+              <md-input type="text" name="username" id="username" autocomplete="username" v-model="user.username" @keyup="handleChange" />
+              <span v-if="errors.username != null" class="md-error">{{errors.username}}</span>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-size-100">
+            <md-field :class="getValidationClass('password')">
+              <label for="password">Password</label>
+              <md-input type="password" name="password" id="password" autocomplete="password" v-model="user.password" @keyup="handleChange" />
+              <span v-if="errors.password != null" class="md-error">{{errors.password}}</span>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-size-100">
+            <md-checkbox v-model="user.remember">Remember Me</md-checkbox>
+          </div>
         </div>
       <md-dialog-actions>
         <md-button class="md-primary" @click="showLogin = false">Close</md-button>
-        <md-button type="submit" class="md-primary">Submit</md-button>
+        <md-button type="submit" class="md-primary" :disabled="(this.errors.username != null && this.errors.username.length > 0) || (this.errors.password != null && this.errors.password.length > 0)">Submit</md-button>
       </md-dialog-actions>
       </form>
       </md-dialog-content>
@@ -95,10 +103,6 @@
     margin: 0px;
     padding: 40px;
 
-    .md-layout-item {
-        margin: 20px;
-        padding: 20px;
-    }
   }
 </style>
 
@@ -119,18 +123,65 @@ export default {
       username: '',
       password: '',
       remember: false
+    },
+    errors: {
+      username: null,
+      password: null
     }
   }),
+
   methods: {
+    getValidationClass (fieldName) {
+
+      switch (fieldName) {
+        case 'username':
+          return { 'md-invalid': (this.errors.username != null && this.errors.username.length > 0) }
+        case 'password':
+          return { 'md-invalid': (this.errors.password != null && this.errors.password.length > 0) }
+        default:
+          return null;
+      }
+    },
     clearForm () {
       this.user.username = '';
       this.user.password = '';
       this.user.remember = false;
+      this.errors.username = null;
+      this.errors.password = null;
     },
-    loginUser () {
+    validate(name, value) {
+      switch (name) {
+        case 'username':
+          if (value.length < 3)
+            this.errors.username = 'Username should be >= 3 characters';
+          else if (value.length > 10)
+            this.errors.username = 'Username should be <= 10 characters';
+          else
+            this.errors.username = '';
+          return;
+
+        case 'password':
+          if (value.length < 8)
+            this.errors.password = 'Password should be >= 8 characters';
+          else
+            this.errors.password = '';
+          return;
+
+        default:
+          return;
+      }
+    },
+    handleChange (event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+        this.validate(name, value);
+    },
+    loginUser (event) {
       this.showLogin = false
       alert(JSON.stringify(this.user));
       this.clearForm();
+      event.target.reset();
     }
   }
 }
