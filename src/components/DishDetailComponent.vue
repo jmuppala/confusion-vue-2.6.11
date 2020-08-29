@@ -10,9 +10,9 @@
         <md-divider></md-divider>
     </div>
     <card-view v-if="selectedDish !== null" :item="selectedDish" class="md-layout-item md-xsmall-size-100 md-medium-size-45"></card-view>
-    <md-list v-if="selectedDish !== null" class="md-layout-item md-xsmall-size-100 md-small-size-45 md-triple-line">
+    <md-list v-if="comments !== null" class="md-layout-item md-xsmall-size-100 md-small-size-45 md-triple-line">
         <h4 class="md-headline">Comments</h4>
-        <md-list-item v-for="comment in selectedDish.comments" v-bind:comment="comment" v-bind:key="comment.id">
+        <md-list-item v-for="comment in comments" v-bind:comment="comment" v-bind:key="comment.id">
             <div class="md-list-item-text">
                 <span>{{comment.comment}}</span>
                 <span>{{comment.rating}} Stars</span>
@@ -26,6 +26,7 @@
 <script>
 import CardView from './CardViewComponent';
 import { DISHES } from '../shared/dishes';
+import { COMMENTS } from '../shared/comments';
 
 export default {
   name: 'DishDetail',
@@ -39,10 +40,12 @@ export default {
     }
   },
   data: () => ({
-      selectedDish: null
+      selectedDish: null,
+      comments: null
   }),
   created() {
       this.selectedDish = DISHES.filter((dish) => dish.id === this.id)[0];
+      this.comments = COMMENTS.filter((comment) => comment.dishId === this.id);
   },
   filters: {
     date: function (value) {

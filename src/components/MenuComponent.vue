@@ -32,12 +32,14 @@
 </template>
 
 <script>
-import { DISHES } from '../shared/dishes';
+import { mapState } from 'vuex';
 
 export default {
   name: 'MenuList',
   data: () => ({
-    dishes: DISHES
+  }),
+  computed: mapState({
+    dishes: state => state.dishes
   })
 }
 </script>

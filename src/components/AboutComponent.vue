@@ -70,12 +70,14 @@
 </template>
 
 <script>
-import { LEADERS } from '../shared/leaders';
+import { mapState } from 'vuex';
 
 export default {
   name: 'About',
   data: () => ({
-    leaders: LEADERS
+  }),
+  computed: mapState({
+    leaders: state => state.leaders
   })
 
 }
