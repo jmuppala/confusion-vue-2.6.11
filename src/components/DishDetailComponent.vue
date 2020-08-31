@@ -66,14 +66,13 @@
 
 <script>
 import CardView from './CardViewComponent';
-import { DISHES } from '../shared/dishes';
-import { COMMENTS } from '../shared/comments';
-import { validationMixin } from 'vuelidate'
+import { validationMixin } from 'vuelidate';
 import {
   required,
   minLength,
   maxLength
-} from 'vuelidate/lib/validators'
+} from 'vuelidate/lib/validators';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'DishDetail',
@@ -97,9 +96,13 @@ export default {
       },
       showForm: false
   }),
+  computed: {
+    ...mapGetters('dishes',['getItemWithId']),
+    ...mapGetters('comments', ['getCommentsWithDishId'])
+  },
   created() {
-      this.selectedDish = DISHES.filter((dish) => dish.id === this.id)[0];
-      this.comments = COMMENTS.filter((comment) => comment.dishId === this.id);
+      this.selectedDish = this.getItemWithId(this.id);
+      this.comments = this.getCommentsWithDishId(this.id);
   },
   filters: {
     date: function (value) {

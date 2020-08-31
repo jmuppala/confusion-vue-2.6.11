@@ -1,5 +1,4 @@
 import { DISHES } from '../shared/dishes';
-import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
 import { LEADERS } from '../shared/leaders';
 
@@ -7,8 +6,6 @@ function state (itemType) {
     switch (itemType) {
         case 'dishes':
             return DISHES;
-        case 'comments': 
-            return COMMENTS;
         case 'promotions':
             return PROMOTIONS;
         case 'leaders':
@@ -16,7 +13,11 @@ function state (itemType) {
     }
 }
 
-export const dishes = { state: state('dishes')};
-export const comments = { state: state('comments')};
-export const promotions = { state: state('promotions')};
-export const leaders = { state: state('leaders')};
+const getters = {
+    featured: (state) => ( state.filter((item) => item.featured)[0] ),
+    getItemWithId: (state) => (id) => state.filter((item) => item.id === id)[0],
+}
+
+export const dishes = { namespaced: true, state: state('dishes'), getters };
+export const promotions = { namespaced: true, state: state('promotions'), getters };
+export const leaders = { namespaced: true, state: state('leaders'), getters };

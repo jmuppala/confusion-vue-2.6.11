@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { dishes, comments, promotions, leaders } from './items';
+import { dishes, promotions, leaders } from './items';
+import { comments } from './comments'
 
 Vue.use(Vuex);
 
