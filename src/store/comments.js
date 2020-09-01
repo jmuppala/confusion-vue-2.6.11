@@ -6,4 +6,11 @@ const getters = {
     getCommentsWithDishId: (state) => (dishId) => state.filter((item) => item.dishId === dishId)
 }
 
-export const comments = { namespaced: true, state, getters };
+const mutations = {
+
+    addComment(state, payload) {
+        state.push({...payload, id: state.length})
+    }
+}
+
+export const comments = { namespaced: true, state, getters, mutations };

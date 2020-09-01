@@ -10,9 +10,9 @@
         <md-divider></md-divider>
     </div>
     <card-view v-if="selectedDish !== null" :item="selectedDish" class="md-layout-item md-xsmall-size-100 md-medium-size-45"></card-view>
-    <md-list v-if="comments !== null" class="md-layout-item md-xsmall-size-100 md-small-size-45 md-triple-line">
+    <md-list v-if="getComments !== null" class="md-layout-item md-xsmall-size-100 md-small-size-45 md-triple-line">
         <h4 class="md-headline">Comments</h4>
-        <md-list-item v-for="comment in comments" v-bind:comment="comment" v-bind:key="comment.id">
+        <md-list-item v-for="comment in getComments" v-bind:comment="comment" v-bind:key="comment.id">
             <div class="md-list-item-text">
                 <span>{{comment.comment}}</span>
                 <span>{{comment.rating}} Stars</span>
@@ -41,11 +41,11 @@
           </div>
           <div class="md-layout-item md-size-90">
             <md-field :class="getValidationClass('name')">
-              <label for="name">Your Name</label>
-              <md-input name="name" id="name" autocomplete="name" v-model.trim="$v.comment.name.$model" />
-              <span class="md-error" v-if="!$v.comment.name.required">Name is required</span>
-              <span class="md-error" v-else-if="!$v.comment.name.minLength">Name must be at least {{$v.comment.name.$params.minLength.min}} characters</span>
-              <span class="md-error" v-else-if="!$v.comment.name.maxLength">Name must be less than {{$v.comment.name.$params.maxLength.max}} characters</span>
+              <label for="author">Your Name</label>
+              <md-input name="author" id="author" autocomplete="author" v-model.trim="$v.comment.author.$model" />
+              <span class="md-error" v-if="!$v.comment.author.required">Name is required</span>
+              <span class="md-error" v-else-if="!$v.comment.author.minLength">Name must be at least {{$v.comment.author.$params.minLength.min}} characters</span>
+              <span class="md-error" v-else-if="!$v.comment.author.maxLength">Name must be less than {{$v.comment.author.$params.maxLength.max}} characters</span>
             </md-field>
           </div>
           <div class="md-layout-item md-size-90">
@@ -72,7 +72,7 @@ import {
   minLength,
   maxLength
 } from 'vuelidate/lib/validators';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'DishDetail',
@@ -87,22 +87,22 @@ export default {
     }
   },
   data: () => ({
-      selectedDish: null,
-      comments: null,
       comment: {
         rating: 5,
-        name: null,
+        author: null,
         comment: null
       },
       showForm: false
   }),
   computed: {
     ...mapGetters('dishes',['getItemWithId']),
-    ...mapGetters('comments', ['getCommentsWithDishId'])
-  },
-  created() {
-      this.selectedDish = this.getItemWithId(this.id);
-      this.comments = this.getCommentsWithDishId(this.id);
+    ...mapGetters('comments', ['getCommentsWithDishId']),
+    selectedDish() {
+      return this.getItemWithId(this.id);
+    },
+    getComments() {
+      return this.getCommentsWithDishId(this.id);
+    }
   },
   filters: {
     date: function (value) {
@@ -111,7 +111,7 @@ export default {
   },
   validations: {
     comment: {
-      name: {
+      author: {
         required,
         minLength: minLength(3),
         maxLength: maxLength(15)
@@ -127,7 +127,7 @@ export default {
           }
       },
       clearForm () {
-          this.comment.name = null;
+          this.comment.author = null;
           this.comment.rating = 5;
           this.comment.comment = null;
           this.$nextTick(() => { this.$v.comment.$reset() });
@@ -135,9 +135,11 @@ export default {
       },
       submitComment () {
           this.$v.comment.$touch
-          alert(JSON.stringify(this.comment));
+          alert(JSON.stringify({...this.comment, dishId: this.id, date: new Date().toISOString()}));
+          this.addComment({...this.comment, dishId: this.id, date: new Date().toISOString()});
           this.clearForm();
-      }
+      },
+      ...mapMutations('comments',['addComment'])
   }
 }
 </script>
