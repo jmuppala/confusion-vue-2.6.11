@@ -10,9 +10,10 @@
         <md-divider></md-divider>
     </div>
     <card-view v-if="selectedDish !== null" :item="selectedDish" class="md-layout-item md-xsmall-size-100 md-medium-size-45"></card-view>
-    <md-list v-if="getComments !== null" class="md-layout-item md-xsmall-size-100 md-small-size-45 md-triple-line">
+    <Loading v-if="getComments.isLoading" message="Loading Comments ..."></Loading>
+    <md-list v-else-if="getComments.items !== null" class="md-layout-item md-xsmall-size-100 md-small-size-45 md-triple-line">
         <h4 class="md-headline">Comments</h4>
-        <md-list-item v-for="comment in getComments" v-bind:comment="comment" v-bind:key="comment.id">
+        <md-list-item v-for="comment in getComments.items" v-bind:comment="comment" v-bind:key="comment.id">
             <div class="md-list-item-text">
                 <span>{{comment.comment}}</span>
                 <span>{{comment.rating}} Stars</span>
@@ -21,6 +22,7 @@
         </md-list-item>
         <md-button class="md-raised md-primary" @click="showForm = true"><md-icon>edit</md-icon> Submit Comment</md-button>
     </md-list>
+    <Loading v-else-if="!getComments.isLoading" message="Loading Comments ..."></Loading>
     <md-dialog :md-active.sync="showForm">
       <md-dialog-content>
       <md-dialog-title>Submit Comment</md-dialog-title>
@@ -73,12 +75,14 @@ import {
   maxLength
 } from 'vuelidate/lib/validators';
 import { mapGetters, mapMutations } from 'vuex';
+import Loading from './LoadingComponent';
 
 export default {
   name: 'DishDetail',
   mixins: [validationMixin],
   components: {
-      CardView
+      CardView,
+      Loading
   },
   props: {
     id: {

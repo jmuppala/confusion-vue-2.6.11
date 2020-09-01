@@ -8,9 +8,10 @@
         <h1 class="md-Heading">Menu</h1>
         <md-divider></md-divider>
     </div>
-    <md-list class="md-layout-item">
+    <Loading v-if="dishes.isLoading" message="Loading Dishes ..."></Loading>
+    <md-list v-else-if="dishes.items !== null" class="md-layout-item">
       <div  class="md-layout md-gutter md-alignment-center-center">
-      <md-list-item v-for="dish in dishes" v-bind:dish="dish" v-bind:key="dish.id" class="md-layout-item" :to="'/menu/' + dish.id">
+      <md-list-item v-for="dish in dishes.items" v-bind:dish="dish" v-bind:key="dish.id" class="md-layout-item" :to="'/menu/' + dish.id">
         <md-card>
             <md-card-media-cover md-text-scrim>
                 <md-card-media md-ratio="1:1">
@@ -27,15 +28,20 @@
       </md-list-item>
       </div>
     </md-list>
+    <Loading v-else-if="!dishes.isLoading" message="Loading Dishes ..."></Loading>
   </div>
 </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import Loading from './LoadingComponent';
 
 export default {
   name: 'MenuList',
+  components: {
+    Loading
+  },
   data: () => ({
   }),
   computed: mapState({

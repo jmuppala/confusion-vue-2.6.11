@@ -48,32 +48,38 @@
         </md-card-content>
       </md-card>
     </div>
-      <md-list class="md-triple-line md-layout-item md-size-100">
-        <md-list-item>
-          <div class="md-list-item-text">
-            <h2 class="md-heading">Corporate Leadership</h2>
-          </div>
-        </md-list-item>
-        <md-list-item v-for="leader in leaders" v-bind:leader="leader" v-bind:key="leader.id">
-          <md-avatar class="md-large">
-            <img :src="leader.image" :alt="leader.name">
-          </md-avatar>
+    <Loading v-if="leaders.isLoading" message="Loading Leaders ..."></Loading>
+    <md-list v-else-if="leaders.items !== null" class="md-triple-line md-layout-item md-size-100">
+      <md-list-item>
+        <div class="md-list-item-text">
+          <h2 class="md-heading">Corporate Leadership</h2>
+        </div>
+      </md-list-item>
+      <md-list-item v-for="leader in leaders.items" v-bind:leader="leader" v-bind:key="leader.id">
+        <md-avatar class="md-large">
+          <img :src="leader.image" :alt="leader.name">
+        </md-avatar>
 
-          <div class="md-list-item-text">
-            <h4 class="md-title">{{leader.name}}</h4>
-            <h6 class="md-subheading">{{leader.designation}}</h6>
-            <p class="md-body1">{{leader.description}}</p>
-          </div>
-        </md-list-item>
-      </md-list>
+        <div class="md-list-item-text">
+          <h4 class="md-title">{{leader.name}}</h4>
+          <h6 class="md-subheading">{{leader.designation}}</h6>
+          <p class="md-body1">{{leader.description}}</p>
+        </div>
+      </md-list-item>
+    </md-list>
+    <Loading v-else-if="!leaders.isLoading" message="Loading Leaders ..."></Loading>
 </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import Loading from './LoadingComponent';
 
 export default {
   name: 'About',
+  components: {
+    Loading
+  },
   data: () => ({
   }),
   computed: mapState({

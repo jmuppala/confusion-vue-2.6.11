@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import { router } from './router';
-import { MdApp, MdToolbar, MdDrawer, MdContent, MdList, MdIcon, MdButton, MdAvatar, MdDivider, MdCard, MdTable, MdDialog, MdField, MdCheckbox, MdMenu } from 'vue-material/dist/components'
+import { MdApp, MdToolbar, MdDrawer, MdContent, MdList, MdIcon, MdButton, MdAvatar, MdDivider, MdCard, MdTable, MdDialog, MdField, MdCheckbox, MdMenu, MdProgress } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 import store from './store';
@@ -24,6 +24,7 @@ Vue.use(MdDialog)
 Vue.use(MdField)
 Vue.use(MdCheckbox)
 Vue.use(MdMenu)
+Vue.use(MdProgress)
 
 new Vue({
   render: h => h(App),

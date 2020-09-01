@@ -109,6 +109,7 @@
 <script>
 import AppHeader from './components/HeaderComponent.vue'
 import AppFooter from './components/FooterComponent.vue'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'App',
@@ -129,7 +130,12 @@ export default {
       password: null
     }
   }),
-
+  created (){
+    this.fetchDishes();
+    this.fetchPromotions();
+    this.fetchLeaders();
+    this.fetchComments();
+  },
   methods: {
     getValidationClass (fieldName) {
 
@@ -182,7 +188,19 @@ export default {
       alert(JSON.stringify(this.user));
       this.clearForm();
       event.target.reset();
-    }
+    },
+    ...mapActions('dishes', {
+      fetchDishes: 'fetchItems'
+    }),
+    ...mapActions('promotions', {
+      fetchPromotions: 'fetchItems'
+    }),
+    ...mapActions('leaders', {
+      fetchLeaders: 'fetchItems'
+    }),
+    ...mapActions('comments', {
+      fetchComments: 'fetchComments'
+    })
   }
 }
 </script>

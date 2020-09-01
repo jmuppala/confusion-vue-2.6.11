@@ -1,23 +1,27 @@
 <template>
-<div>
-    <md-card v-if="item !== null">
+  <div>
+    <Loading v-if="item.isLoading" message="Loading ..."></Loading>
+    <md-card v-else-if="item.item !== null">
       <md-card-media>
-        <img :src="item.image" :alt="item.name">
+        <img :src="item.item.image" :alt="item.item.name">
       </md-card-media>
 
       <md-card-header>
-        <div class="md-title">{{ item.name }}</div>
-        <div v-if="item.designation !== null" class="md-subheading">{{ item.designation }}</div>
+        <div class="md-title">{{ item.item.name }}</div>
+        <div v-if="item.item.designation !== null" class="md-subheading">{{ item.item.designation }}</div>
       </md-card-header>
 
       <md-card-content>
-          {{ item.description }}
+          {{ item.item.description }}
       </md-card-content>
     </md-card>
-    </div>
+    <Loading v-else-if="!item.isLoading" message="Loading ..."></Loading>
+  </div>
 </template>
 
 <script>
+import Loading from './LoadingComponent';
+
 export default {
   name: 'CardView',
   props: {
@@ -25,6 +29,9 @@ export default {
       type: Object,
       required: true
     }
+  },
+  components: {
+    Loading
   }
 }
 </script>
