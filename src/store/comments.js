@@ -1,5 +1,6 @@
-import { COMMENTS } from '../shared/comments';
 import { SET_LOADING, SET_ERROR, SET_ITEMS } from './mutationTypes';
+import { baseUrl } from '../shared/baseUrl';
+import fetch from 'cross-fetch';
 
 const state = () => ({ isLoading: false, errMess: null, items: null });
 
@@ -39,8 +40,11 @@ const mutations = {
 const actions = {
     fetchComments ( { commit }) {
         commit(SET_LOADING);
+        const url = baseUrl + 'comments';
 
-        setTimeout(() => { commit(SET_ITEMS, COMMENTS) }, 2000);
+        fetch(url)
+        .then(response => response.json())
+        .then(items => commit(SET_ITEMS, items));
     }
 }
 

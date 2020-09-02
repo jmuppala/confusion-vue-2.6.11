@@ -15,7 +15,7 @@
         <md-card>
             <md-card-media-cover md-text-scrim>
                 <md-card-media md-ratio="1:1">
-                    <img :src="dish.image" :alt="dish.name">
+                    <img :src="baseUrl + dish.image" :alt="dish.name">
                 </md-card-media>
 
                 <md-card-area>
@@ -36,6 +36,7 @@
 <script>
 import { mapState } from 'vuex';
 import Loading from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 export default {
   name: 'MenuList',
@@ -43,6 +44,7 @@ export default {
     Loading
   },
   data: () => ({
+    baseUrl: baseUrl
   }),
   computed: mapState({
     dishes: state => state.dishes

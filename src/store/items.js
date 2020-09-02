@@ -1,7 +1,6 @@
-import { DISHES } from '../shared/dishes';
-import { PROMOTIONS } from '../shared/promotions';
-import { LEADERS } from '../shared/leaders';
 import { SET_LOADING, SET_ERROR, SET_ITEMS } from './mutationTypes';
+import { baseUrl } from '../shared/baseUrl';
+import fetch from 'cross-fetch';
 
 const state = () => ({ isLoading: false, errMess: null, items: null });
 
@@ -47,22 +46,11 @@ const mutations = {
 const actions = (itemType) => ({
     fetchItems ({ commit }) {
         commit(SET_LOADING);
+        const url = baseUrl + itemType;
 
-        setTimeout(() => { 
-            switch (itemType) {
-                case 'dishes':
-                    commit(SET_ITEMS, DISHES);
-                    break;
-                case 'promotions':
-                    commit(SET_ITEMS, PROMOTIONS);
-                    break;
-                case 'leaders':
-                    commit(SET_ITEMS, LEADERS);
-                    break;
-                default:
-                    break;
-            }
-        }, 2000);
+        fetch(url)
+        .then(response => response.json())
+        .then(items => commit(SET_ITEMS, items));
     }
 })
 

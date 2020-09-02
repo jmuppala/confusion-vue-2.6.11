@@ -5,8 +5,8 @@
         <md-button disabled><md-icon>chevron_right</md-icon></md-button>
         <md-button to='/menu'><md-icon>menu</md-icon> Menu</md-button>
         <md-button disabled><md-icon>chevron_right</md-icon></md-button>
-        <md-button v-if="selectedDish !== null" disabled>{{ selectedDish.name }}</md-button>
-        <h1 v-if="selectedDish !== null" class="md-Heading">{{ selectedDish.name }}</h1>
+        <md-button v-if="selectedDish.item !== null" disabled>{{ selectedDish.item.name }}</md-button>
+        <h1 v-if="selectedDish.item !== null" class="md-Heading">{{ selectedDish.item.name }}</h1>
         <md-divider></md-divider>
     </div>
     <card-view v-if="selectedDish !== null" :item="selectedDish" class="md-layout-item md-xsmall-size-100 md-medium-size-45"></card-view>

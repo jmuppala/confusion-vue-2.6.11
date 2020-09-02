@@ -3,7 +3,7 @@
     <Loading v-if="item.isLoading" message="Loading ..."></Loading>
     <md-card v-else-if="item.item !== null">
       <md-card-media>
-        <img :src="item.item.image" :alt="item.item.name">
+        <img :src="baseUrl + item.item.image" :alt="item.item.name">
       </md-card-media>
 
       <md-card-header>
@@ -21,6 +21,7 @@
 
 <script>
 import Loading from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 export default {
   name: 'CardView',
@@ -30,6 +31,9 @@ export default {
       required: true
     }
   },
+  data: () => ({
+    baseUrl: baseUrl
+  }),
   components: {
     Loading
   }

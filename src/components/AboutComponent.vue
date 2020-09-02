@@ -57,7 +57,7 @@
       </md-list-item>
       <md-list-item v-for="leader in leaders.items" v-bind:leader="leader" v-bind:key="leader.id">
         <md-avatar class="md-large">
-          <img :src="leader.image" :alt="leader.name">
+          <img :src="baseUrl + leader.image" :alt="leader.name">
         </md-avatar>
 
         <div class="md-list-item-text">
@@ -74,6 +74,7 @@
 <script>
 import { mapState } from 'vuex';
 import Loading from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 export default {
   name: 'About',
@@ -81,6 +82,7 @@ export default {
     Loading
   },
   data: () => ({
+    baseUrl: baseUrl
   }),
   computed: mapState({
     leaders: state => state.leaders
