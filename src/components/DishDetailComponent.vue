@@ -11,6 +11,9 @@
     </div>
     <card-view v-if="selectedDish !== null" :item="selectedDish" class="md-layout-item md-xsmall-size-100 md-medium-size-45"></card-view>
     <Loading v-if="getComments.isLoading" message="Loading Comments ..."></Loading>
+    <div v-else-if="getComments.errMess" class="md-layout-item md-xsmall-size-100 md-small-size-45">
+      <h6 class="md-title">{{getComments.errMess}}</h6>
+    </div>
     <md-list v-else-if="getComments.items !== null" class="md-layout-item md-xsmall-size-100 md-small-size-45 md-triple-line">
         <h4 class="md-headline">Comments</h4>
         <md-list-item v-for="comment in getComments.items" v-bind:comment="comment" v-bind:key="comment.id">

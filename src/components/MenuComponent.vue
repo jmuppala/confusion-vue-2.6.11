@@ -9,6 +9,9 @@
         <md-divider></md-divider>
     </div>
     <Loading v-if="dishes.isLoading" message="Loading Dishes ..."></Loading>
+    <div v-else-if="dishes.errMess" class="md-layout-item">
+      <h6 class="md-title">{{dishes.errMess}}</h6>
+    </div>
     <md-list v-else-if="dishes.items !== null" class="md-layout-item">
       <div  class="md-layout md-gutter md-alignment-center-center">
       <md-list-item v-for="dish in dishes.items" v-bind:dish="dish" v-bind:key="dish.id" class="md-layout-item" :to="'/menu/' + dish.id">

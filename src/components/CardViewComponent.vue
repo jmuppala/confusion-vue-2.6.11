@@ -1,6 +1,9 @@
 <template>
   <div>
     <Loading v-if="item.isLoading" message="Loading ..."></Loading>
+    <div v-else-if="item.errMess">
+      <h6 class="md-title">{{item.errMess}}</h6>
+    </div>
     <md-card v-else-if="item.item !== null">
       <md-card-media>
         <img :src="baseUrl + item.item.image" :alt="item.item.name">

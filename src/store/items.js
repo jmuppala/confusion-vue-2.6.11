@@ -49,8 +49,21 @@ const actions = (itemType) => ({
         const url = baseUrl + itemType;
 
         fetch(url)
+        .then(response => {
+            if (response.ok) {
+                return response;
+            }
+            else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText + ' ' + response.url);
+                throw error;
+            }
+        },
+        error => {
+            throw error;
+        })
         .then(response => response.json())
-        .then(items => commit(SET_ITEMS, items));
+        .then(items => commit(SET_ITEMS, items))
+        .catch(error => commit(SET_ERROR, error.message));
     }
 })
 

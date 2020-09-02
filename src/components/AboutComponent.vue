@@ -49,6 +49,9 @@
       </md-card>
     </div>
     <Loading v-if="leaders.isLoading" message="Loading Leaders ..."></Loading>
+    <div v-else-if="leaders.errMess" class="md-layout-item md-size-100">
+      <h6 class="md-title">{{leaders.errMess}}</h6>
+    </div>
     <md-list v-else-if="leaders.items !== null" class="md-triple-line md-layout-item md-size-100">
       <md-list-item>
         <div class="md-list-item-text">
