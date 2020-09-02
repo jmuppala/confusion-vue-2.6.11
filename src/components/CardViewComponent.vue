@@ -1,5 +1,6 @@
 <template>
   <div>
+    <transition name="expand" appear>
     <Loading v-if="item.isLoading" message="Loading ..."></Loading>
     <div v-else-if="item.errMess">
       <h6 class="md-title">{{item.errMess}}</h6>
@@ -19,6 +20,7 @@
       </md-card-content>
     </md-card>
     <Loading v-else-if="!item.isLoading" message="Loading ..."></Loading>
+    </transition>
   </div>
 </template>
 
@@ -50,5 +52,17 @@ export default {
     display: inline-block;
     vertical-align: top;
   }
+  .expand-enter {
+    opacity: 0;
+    transform: scale(0.1);
+  }
 
+  .expand-enter-active {
+      transition: all 500ms ease-in 500ms;
+  }
+
+  .expand-enter-to {
+      opacity: 1;
+      transform: scale(1);
+  }
 </style>

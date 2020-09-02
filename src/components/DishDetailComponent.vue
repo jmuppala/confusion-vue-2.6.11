@@ -16,6 +16,7 @@
     </div>
     <md-list v-else-if="getComments.items !== null" class="md-layout-item md-xsmall-size-100 md-small-size-45 md-triple-line">
         <h4 class="md-headline">Comments</h4>
+        <transition-group name="list" appear>
         <md-list-item v-for="comment in getComments.items" v-bind:comment="comment" v-bind:key="comment.id">
             <div class="md-list-item-text">
                 <span>{{comment.comment}}</span>
@@ -23,6 +24,7 @@
                 <span>-- {{comment.author}} {{comment.date | date}}</span>
             </div>
         </md-list-item>
+        </transition-group>
         <md-button class="md-raised md-primary" @click="showForm = true"><md-icon>edit</md-icon> Submit Comment</md-button>
     </md-list>
     <Loading v-else-if="!getComments.isLoading" message="Loading Comments ..."></Loading>
@@ -168,5 +170,11 @@ export default {
     display: inline-block;
     max-width: 45%;
   }
-
+  .list-enter-active, .list-leave-active {
+    transition: all 1s ease-in 500ms;
+  }
+  .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
 </style>
