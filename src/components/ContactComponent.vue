@@ -99,6 +99,7 @@
     minLength,
     maxLength
   } from 'vuelidate/lib/validators'
+import { mapActions } from 'vuex';
 
 export default {
     name: 'Contact',
@@ -156,9 +157,10 @@ export default {
         },
         submitFeedback () {
             this.$v.feedback.$touch
-            console.log(JSON.stringify(this.feedback));
+            this.postFeedback(this.feedback);
             this.clearForm();
-        }
+        },
+        ...mapActions('comments',['postFeedback'])
     }
 }
 </script>

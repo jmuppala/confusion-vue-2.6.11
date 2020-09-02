@@ -58,6 +58,7 @@
           <h2 class="md-heading">Corporate Leadership</h2>
         </div>
       </md-list-item>
+      <transition-group name="list" appear>
       <md-list-item v-for="leader in leaders.items" v-bind:leader="leader" v-bind:key="leader.id">
         <md-avatar class="md-large">
           <img :src="baseUrl + leader.image" :alt="leader.name">
@@ -69,6 +70,7 @@
           <p class="md-body1">{{leader.description}}</p>
         </div>
       </md-list-item>
+      </transition-group>
     </md-list>
     <Loading v-else-if="!leaders.isLoading" message="Loading Leaders ..."></Loading>
 </div>
@@ -105,4 +107,11 @@ export default {
       padding: 20px;
   }
  }
+  .list-enter-active, .list-leave-active {
+    transition: all 1s ease-in 500ms;
+  }
+  .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
 </style>
