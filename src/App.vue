@@ -41,7 +41,9 @@
 
       <md-app-content>
         <app-header></app-header>
-        <router-view></router-view>
+        <transition name="page" mode="out-in">
+          <router-view></router-view>
+        </transition>
         <app-footer></app-footer>
       </md-app-content>
     </md-app>
@@ -103,6 +105,23 @@
     margin: 0px;
     padding: 40px;
 
+  }
+  .page-enter {
+    opacity: 0.01;
+    transform: translateX(100%);
+  }
+
+  .page-enter-active {
+      transition: all 500ms ease-in;
+  }
+
+  .page-leave-active {
+      transition: all 500ms ease-out;
+  }
+
+  .page-leave-to {
+      opacity: 0.01;
+      transform: translateX(-100%);
   }
 </style>
 
