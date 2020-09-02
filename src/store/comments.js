@@ -31,14 +31,11 @@ const mutations = {
         state.isLoading = false; 
         state.errMess = null;
         state.items = payload;
-    },
-    addComment(state, payload) {
-        state.push({...payload, id: state.length})
     }
 }
 
 const actions = {
-    fetchComments ( { commit }) {
+    fetchComments ({ commit }) {
         commit(SET_LOADING);
         const url = baseUrl + 'comments';
 
@@ -58,6 +55,37 @@ const actions = {
         .then(response => response.json())
         .then(items => commit(SET_ITEMS, items))
         .catch(error => commit(SET_ERROR, error.message));
+    },
+    addComment({ dispatch }, payload) {
+
+        const url = baseUrl + 'comments';
+            
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(payload),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => {
+            if (response.ok) {
+                return response;
+            }
+            else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText + ' ' + response.url);
+                error.response = response;
+                throw error;
+            }
+        },
+        error => {
+            throw error;
+        })
+        .then(response => response.json())
+        .then(response => console.log('Posted: ', response))
+        .then(() => dispatch('fetchComments'))
+        .catch(error => { console.log('Post comments ', error.message);
+            alert('Your comment could not be posted\nError: '+ error.message); })
     }
 }
 

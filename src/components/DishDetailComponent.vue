@@ -77,7 +77,7 @@ import {
   minLength,
   maxLength
 } from 'vuelidate/lib/validators';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Loading from './LoadingComponent';
 
 export default {
@@ -146,7 +146,7 @@ export default {
           this.addComment({...this.comment, dishId: this.id, date: new Date().toISOString()});
           this.clearForm();
       },
-      ...mapMutations('comments',['addComment'])
+      ...mapActions('comments',['addComment'])
   }
 }
 </script>
